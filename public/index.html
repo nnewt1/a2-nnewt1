@@ -11,9 +11,22 @@
 </head>
 <body>
 <form>
-    <label for="yourname">Your Name: </label><input type="text" id="yourname" value="your name here">
+    <div class="formfields">
+        <label for="assignmentname">Assignment: </label><input type="text" id="assignmentname" value="">
+        <label for="classname">Class: </label><input type="text" id="classname" value="">
+        <label for="deadline">Deadline: </label><input type="date" id="deadline" value="">
+    </div>
     <button>submit</button>
 </form>
+<br>
+<table id="datadisplay">
+    <tr>
+        <th>Assignment</th>
+        <th>Class</th>
+        <th>Deadline</th>
+        <th>Priority</th>
+    </tr>
+</table>
 
 </body>
 </html>

@@ -23,8 +23,8 @@ const server = http.createServer( function( request,response ) {
     }
 
     // The following shows the requests being sent to the server
-    // fullURL = `http://${request.headers.host}${request.url}`
-    // console.log( fullURL );
+    fullURL = `http://${request.headers.host}${request.url}`
+    console.log( fullURL );
 })
 
 const handleGet = function( request, response ) {
@@ -46,11 +46,35 @@ const handlePost = function( request, response ) {
 
     request.on( "end", function() {
         console.log( JSON.parse( dataString ) )
+        let newdata = JSON.parse( dataString )
 
         // ... do something with the data here and at least generate the derived data
 
-        response.writeHead( 200, "OK", {"Content-Type": "text/plain" })
-        response.end("text")
+        // Priority field to be derived from the deadline (compares the date value of deadline to today's date)
+        // If deadline is within 1 day or less, priority is high, 2 days medium, 3 days or more low
+        // How to get deadline from dataString?
+        // How to update the data being posted?
+        let priority = function() {
+            let today = new Date();
+            let deadline = new Date(newdata.deadline);
+            console.log(today);
+            console.log(deadline);
+            let diff = deadline - today;
+            console.log(diff);
+            if (diff <= 86400000) {
+                return "High";
+            } else if (diff <= 172800000) {
+                return "Medium";
+            }
+            return "Low";
+        }
+
+        newdata.priority = priority()
+
+        console.log(newdata)
+
+        response.writeHead( 200, "OK", {"Content-Type": "application/json" })
+        response.end(JSON.stringify(newdata))
     })
 }
 

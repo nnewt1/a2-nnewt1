@@ -7,8 +7,10 @@ const submit = async function( event ) {
     // remains to this day
     event.preventDefault()
 
-    const input = document.querySelector( "#yourname" ),
-        json = { yourname: input.value },
+    const assignmentinput = document.querySelector( "#assignmentname" ),
+        classinput = document.querySelector( "#classname" ),
+        deadlineinput = document.querySelector( "#deadline" ),
+        json = { assignmentname: assignmentinput.value , classname: classinput.value, deadline: deadlineinput.value},
         body = JSON.stringify( json )
 
     const response = await fetch( "/submit", {
@@ -16,8 +18,17 @@ const submit = async function( event ) {
         body
     })
 
-    const text = await response.text()
-    console.log( "text:", text )
+    const newAssignment = await response.json()
+    console.log( "New Assignment:", newAssignment )
+
+    const assignmentTable = document.querySelector("#datadisplay")
+    const newRow = assignmentTable.insertRow(-1)
+
+    newRow.insertCell(0).textContent = newAssignment.assignmentname
+    newRow.insertCell(1).textContent = newAssignment.classname
+    newRow.insertCell(2).textContent = newAssignment.deadline
+    newRow.insertCell(3).textContent = newAssignment.priority
+
 }
 
 window.onload = function() {
