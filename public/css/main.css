@@ -1,4 +1,28 @@
 body {
-    background:black;
+    background:darkslategray;
     color:white;
+    font-family: "Roboto", serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form {
+    background-color: slategray;
+    padding: 20px;
+}
+
+.formfields {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#datadisplay {
+    padding: 20px;
+    background-color: slategray;
+}
+
+#datadisplay th, #datadisplay td {
+    padding: 10px;
 }
